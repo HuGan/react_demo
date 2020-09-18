@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {getLockscreenWallpaper} from '../utils/api'
+import { getLockscreenWallpaper } from '../utils/api'
 import { incrementAction, reduceAction } from '../reducers/calculate';
 import { connect } from 'react-redux';
 
@@ -37,8 +37,8 @@ class ProductTitle extends React.Component<Props, State> {
 
     let { children, titleStyle, titleClass } = this.props;
 
-    const listItem = this.state.list ?
-      this.state.list.map((item: any) => <li key={item.id}>{item.tag}</li>) : ''
+    const listItem = this.state.list && 
+      this.state.list.map((item: any) => <li key={item.id}>{item.tag}</li>)
       
     return (
       <div>

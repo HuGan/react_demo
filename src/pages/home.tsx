@@ -1,49 +1,32 @@
-import React, { Component } from 'react';
-import './index.css'
-import { incrementAction, reduceAction } from '../reducers/calculate';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, createContext, Context } from 'react';
+import Zitem from './zitem'
 
-interface Props {
-    num: number,
-    list: [],
-    increment: ()=>any,
-    decrement: ()=>any,
-}
+// 创建上下文
+export const NumContext: Context<any> = createContext('provider');
 
-const mapStateToProps = (state: any) => {
-  return {
-    num: state.calculate.num,
-    list: state.calculate.list,
-  };
-};
+function Home() {
+    const [num, setNum] = useState(4);
+    const [num2, setNum2] = useState(4);
 
-const mapDispatchToProps = (dispatch: any) => ({
-  increment: () => dispatch(incrementAction),
-  decrement: () => dispatch(reduceAction)
-});
 
-@(connect( mapStateToProps, mapDispatchToProps, ) as any)
-export default class Home extends Component<Props, any> {
-
-    componentDidMount() {
-      console.log(this.props.list);
-      
-    }
-
-    render() {
-
-      const listItem = this.props.list && 
-        this.props.list.map((item: any) => <li key={item.id}>{item.tag}</li>)
-      
-        return <div className='container'>
-            <Link to='/'>h1</Link>
-            <Link to='/h2'>h2</Link>
-            {listItem}
-            {/* <Item></Item> */}
-            <p onClick={this.props.increment}>click to increment num</p>
-            <p onClick={this.props.decrement}>click to decrement num</p>
-            <p>{this.props.num}</p>
+    useEffect(() => {
+        console.log(`You clicked ${num} times`)
+        // document.title = `You clicked ${num} times`;
+    }, [num]);
+    
+    return (
+        <div>
+            <p>数字{num}</p>
+            <button onClick={() => {
+                setNum(num + 1)
+            }}>
+                点击增加数值
+              </button>
+            {/* 通过Provider 将要共享的数据 提供给上下文，子组件也可以拿到 */}
+            <NumContext.Provider value={{ num, setNum }}>
+                <Zitem />
+            </NumContext.Provider>
         </div>
-    }
+    )
 }
+export default Home;

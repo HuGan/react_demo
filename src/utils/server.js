@@ -63,8 +63,12 @@ function checkStatus(response = {}) {
     return response.data || {};
   }
   const message = response.data.message || response.message || '网络异常';
-  return { status: 404, message };
+  return {
+    status: 404,
+    message
+  };
 }
+
 function checkCode(res) {
   if (res.data !== false) {
     res.data = res.data || {};
@@ -92,7 +96,11 @@ actions.forEach(action => {
     if (action === 'post') {
       params = qs.stringify(params);
     }
-    return axiosInst({ method: action, url, [data]: params })
+    return axiosInst({
+        method: action,
+        url,
+        [data]: params
+      })
       .then(response => {
         return checkStatus(response);
       })

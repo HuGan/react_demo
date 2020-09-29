@@ -1,15 +1,15 @@
 import React , { useContext } from 'react';
-import  { NumContext } from './home'
+import  { NumContext } from './parent'
 
 function Zitem(){
 	// 使用上下文，通过解构赋值，使用 num 和 setNum
-    let { num ,setNum } = useContext(NumContext);
+    let { count, dispath } = useContext(NumContext);
     
     return (
         <div>
-            子组件数值{num}
+            子组件数值{count}
             <button onClick={()=>{
-                setNum(num+1) 
+                dispath('add') 
               }}>  
                 子组件点击增加数值
             </button>
